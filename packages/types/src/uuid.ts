@@ -2,8 +2,6 @@ import { pipe } from "fp-ts/function";
 import * as D from "io-ts/Decoder";
 import { validate, v4 } from "uuid";
 
-export const uuid = "1";
-
 type UUIDBrand = {
   readonly UUID: unique symbol;
 };

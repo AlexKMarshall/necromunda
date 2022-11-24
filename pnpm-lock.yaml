@@ -8,6 +8,17 @@ importers:
     dependencies:
       turbo: 1.6.3
 
+  domain/reference-data:
+    specifiers:
+      '@necromunda/one': workspace:^0.0.0
+      '@necromunda/tsconfig': workspace:^0.0.0
+      typescript: ^4.9.3
+    dependencies:
+      '@necromunda/one': link:../../packages/one
+    devDependencies:
+      '@necromunda/tsconfig': link:../../packages/tsconfig
+      typescript: 4.9.3
+
   packages/one:
     specifiers:
       '@necromunda/tsconfig': workspace:^0.0.0
@@ -18,8 +29,11 @@ importers:
 
   packages/two:
     specifiers:
+      '@necromunda/one': workspace:^1.0.0
       '@necromunda/tsconfig': workspace:^0.0.0
       typescript: ^4.9.3
+    dependencies:
+      '@necromunda/one': link:../one
     devDependencies:
       '@necromunda/tsconfig': link:../tsconfig
       typescript: 4.9.3

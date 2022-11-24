@@ -1,7 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
     "dev": {
+      "dependsOn": ["^db:generate"],
       "cache": false
     },
     "lint": {
@@ -11,8 +18,11 @@
       "outputs": []
     },
     "build": {
-      "dependsOn": ["^build", "type-check", "lint"],
+      "dependsOn": ["^build", "type-check", "lint", "^db:generate"],
       "outputs": ["build/*"]
+    },
+    "precommit": {
+      "dependsOn": ["type-check", "lint"]
     }
   }
 }

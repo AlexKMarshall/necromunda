@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "turbo run dev",
+    "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "build": "turbo run build"
   },
@@ -12,5 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "turbo": "^1.6.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.0"
   }
 }

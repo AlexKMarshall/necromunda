@@ -4,11 +4,14 @@
     "dev": {
       "cache": false
     },
+    "lint": {
+      "outputs": []
+    },
     "type-check": {
       "outputs": []
     },
     "build": {
-      "dependsOn": ["^build", "type-check"],
+      "dependsOn": ["^build", "type-check", "lint"],
       "outputs": ["build/*"]
     }
   }

@@ -72,9 +72,19 @@ const toUniqueFactionName =
       )
     );
 
+export type Faction = D.TypeOf<typeof FactionDecoder> & {
+  name: UniqueFactionName;
+  id: FactionId;
+};
+
 const validateFaction =
   <E>(checkFactionNameExists: CheckFactionNameExists<E>) =>
-  (unvalidatedFaction: UnvalidatedFaction) =>
+  (
+    unvalidatedFaction: UnvalidatedFaction
+  ): TE.TaskEither<
+    D.DecodeError | FactionNameAlreadyExistsError | E,
+    Faction
+  > =>
     pipe(
       unvalidatedFaction,
       FactionDecoder.decode,

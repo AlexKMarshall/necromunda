@@ -1,5 +1,5 @@
 import { json, Response } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { flow } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
@@ -45,6 +45,8 @@ export default function FactionsRoute() {
     <div>
       <h1>Factions</h1>
       <pre>{JSON.stringify(data, null, 2)}</pre>
+      <Link to="new">New</Link>
+      <Outlet />
     </div>
   );
 }

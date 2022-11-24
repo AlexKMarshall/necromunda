@@ -1,0 +1,6 @@
+{
+  "name": "@necromunda/tsconfig",
+  "version": "0.0.0",
+  "description": "Shared typescript configuration",
+  "license": "ISC"
+}

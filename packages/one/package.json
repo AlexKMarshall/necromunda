@@ -1,0 +1,17 @@
+{
+  "name": "@necromunda/one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@necromunda/tsconfig": "workspace:^0.0.0",
+    "typescript": "^4.9.3"
+  }
+}

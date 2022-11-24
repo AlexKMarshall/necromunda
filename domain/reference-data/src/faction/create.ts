@@ -26,22 +26,73 @@ const FactionDecoder = pipe(
   )
 );
 
-const validateFaction = (unvalidatedFaction: UnvalidatedFaction) =>
-  pipe(
-    unvalidatedFaction,
-    FactionDecoder.decode,
-    TE.fromEither,
-    TE.chainW(({ name, ...rest }) =>
-      pipe(
-        TE.Do,
-        TE.apS("name", TE.right(name)),
-        TE.apS("id", TE.right(generateFactionId())),
-        TE.map(({ name, id }) => ({ name, id, ...rest }))
-      )
-    )
-  );
+type FactionName = D.TypeOf<typeof FactionDecoder>["name"];
 
-export const createFaction = flow(
-  validateFaction,
-  TE.map((createdFaction) => ({ createdFaction }))
-);
+type CheckFactionNameExists<NonDomainError> = (
+  name: FactionName
+) => TE.TaskEither<NonDomainError, boolean>;
+
+class DomainError extends Error {
+  public _tag = "DomainError";
+  constructor(message?: string) {
+    super(message);
+  }
+
+  public static of(message?: string): DomainError {
+    return new DomainError(message);
+  }
+}
+
+class FactionNameAlreadyExistsError extends DomainError {
+  public _tag = "FactionNameAlreadyExistsError";
+  constructor(name: string) {
+    super(`Faction with name ${name} already exists`);
+  }
+
+  public static of(name: string): FactionNameAlreadyExistsError {
+    return new FactionNameAlreadyExistsError(name);
+  }
+}
+
+type UniqueFactionNameBrand = {
+  readonly UniqueFactionName: unique symbol;
+};
+type UniqueFactionName = FactionName & UniqueFactionNameBrand;
+
+const toUniqueFactionName =
+  <E>(checkFactionNameExists: CheckFactionNameExists<E>) =>
+  (name: FactionName) =>
+    pipe(
+      name,
+      checkFactionNameExists,
+      TE.chainW((exists) =>
+        exists
+          ? TE.left(FactionNameAlreadyExistsError.of(name))
+          : TE.right(name as UniqueFactionName)
+      )
+    );
+
+const validateFaction =
+  <E>(checkFactionNameExists: CheckFactionNameExists<E>) =>
+  (unvalidatedFaction: UnvalidatedFaction) =>
+    pipe(
+      unvalidatedFaction,
+      FactionDecoder.decode,
+      TE.fromEither,
+      TE.chainW(({ name, ...rest }) =>
+        pipe(
+          TE.Do,
+          TE.apS("name", toUniqueFactionName(checkFactionNameExists)(name)),
+          TE.apS("id", TE.right(generateFactionId())),
+          TE.map(({ name, id }) => ({ name, id, ...rest }))
+        )
+      )
+    );
+
+export const createFaction = <E>(
+  checkFactionNameExists: CheckFactionNameExists<E>
+) =>
+  flow(
+    validateFaction(checkFactionNameExists),
+    TE.map((createdFaction) => ({ createdFaction }))
+  );

@@ -1,6 +1,17 @@
 import * as referenceData from "@necromunda/reference-data";
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { prisma } from "~/db.server";
+
+export const loader = async () => {
+  const factions = await prisma.faction.findMany();
+
+  return json({ factions });
+};
 
 export default function Index() {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
@@ -29,6 +40,7 @@ export default function Index() {
           </a>
         </li>
         <li>{referenceData.referenceData}</li>
+        <li>{JSON.stringify(data, null, 2)}</li>
       </ul>
     </div>
   );

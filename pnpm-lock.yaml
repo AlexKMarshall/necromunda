@@ -13,6 +13,7 @@ importers:
 
   apps/web:
     specifiers:
+      '@necromunda/database': workspace:*
       '@necromunda/reference-data': workspace:*
       '@necromunda/tsconfig': workspace:^0.0.0
       '@remix-run/dev': ^1.7.6
@@ -28,6 +29,7 @@ importers:
       react-dom: ^18.2.0
       typescript: ^4.8.4
     dependencies:
+      '@necromunda/database': link:../../infrastructure/database
       '@necromunda/reference-data': link:../../domain/reference-data
       '@remix-run/node': 1.7.6_biqbaboplfbrettd7655fr4n2y
       '@remix-run/react': 1.7.6_biqbaboplfbrettd7655fr4n2y
@@ -62,6 +64,15 @@ importers:
       '@necromunda/tsconfig': link:../../packages/tsconfig
       eslint-config-custom: link:../../packages/eslint-config-custom
       typescript: 4.9.3
+
+  infrastructure/database:
+    specifiers:
+      '@prisma/client': latest
+      prisma: 4.6.1
+    dependencies:
+      '@prisma/client': 4.6.1_prisma@4.6.1
+    devDependencies:
+      prisma: 4.6.1
 
   packages/eslint-config-custom:
     specifiers:
@@ -1589,6 +1600,28 @@ packages:
       tiny-glob: 0.2.9
       tslib: 2.4.1
     dev: true
+
+  /@prisma/client/4.6.1_prisma@4.6.1:
+    resolution: {integrity: sha512-M1+NNrMzqaOIxT7PBGcTs3IZo7d1EW/+gVQd4C4gUgWBDGgD9AcIeZnUSidgWClmpMSgVUdnVORjsWWGUameYA==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.6.1-3.694eea289a8462c80264df36757e4fdc129b1b32
+      prisma: 4.6.1
+    dev: false
+
+  /@prisma/engines-version/4.6.1-3.694eea289a8462c80264df36757e4fdc129b1b32:
+    resolution: {integrity: sha512-HUCmkXAU2jqp2O1RvNtbE+seLGLyJGEABZS/R38rZjSAafAy0WzBuHq+tbZMnD+b5OSCsTVtIPVcuvx1ySxcWQ==}
+    dev: false
+
+  /@prisma/engines/4.6.1:
+    resolution: {integrity: sha512-3u2/XxvxB+Q7cMXHnKU0CpBiUK1QWqpgiBv28YDo1zOIJE3FCF8DI2vrp6vuwjGt5h0JGXDSvmSf4D4maVjJdw==}
+    requiresBuild: true
 
   /@remix-run/dev/1.7.6_4vz2e3qrixth2olsykapxulhwu:
     resolution: {integrity: sha512-D2jIjxSTSL29E+bXAyOW9a4QPN01sDbOKw5ge0jJOyqeCc41F6elp//eaKj9tTtcSiO40/roVUIfHu9xs8driQ==}
@@ -6169,6 +6202,14 @@ packages:
     dependencies:
       parse-ms: 2.1.0
     dev: true
+
+  /prisma/4.6.1:
+    resolution: {integrity: sha512-BR4itMCuzrDV4tn3e2TF+nh1zIX/RVU0isKtKoN28ADeoJ9nYaMhiuRRkFd2TZN8+l/XfYzoRKyHzUFXLQhmBQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.6.1
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}

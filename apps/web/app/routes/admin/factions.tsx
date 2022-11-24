@@ -3,17 +3,7 @@ import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { flow } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
-
-class DBError extends Error {
-  public _tag = "DBError";
-  constructor(public innerError?: unknown) {
-    super("Unexpected database error");
-  }
-
-  public static of(innerError?: unknown) {
-    return new DBError(innerError);
-  }
-}
+import { DBError } from "~/errors";
 
 const getFactionCollection = () =>
   TE.tryCatch(

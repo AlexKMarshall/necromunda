@@ -6,17 +6,7 @@ import { createFaction } from "@necromunda/reference-data";
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
 import * as T from "fp-ts/Task";
-
-class DBError extends Error {
-  public _tag = "DBError";
-  constructor(public innerError?: unknown) {
-    super("Unexpected database error");
-  }
-
-  public static of(innerError?: unknown) {
-    return new DBError(innerError);
-  }
-}
+import { DBError } from "~/errors";
 
 const checkFactionNameExists = (name: string) =>
   pipe(

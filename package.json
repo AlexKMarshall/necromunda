@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "turbo run dev",
-    "type-check": "turbo run type-check"
+    "type-check": "turbo run type-check",
+    "build": "turbo run build"
   },
   "keywords": [],
   "author": "",

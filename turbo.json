@@ -6,6 +6,10 @@
     },
     "type-check": {
       "outputs": []
+    },
+    "build": {
+      "dependsOn": ["^build", "type-check"],
+      "outputs": ["build/*"]
     }
   }
 }

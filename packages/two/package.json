@@ -16,6 +16,6 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@necromunda/one": "workspace:^1.0.0"
+    "@necromunda/one": "workspace:*"
   }
 }

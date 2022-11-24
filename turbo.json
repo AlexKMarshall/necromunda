@@ -20,6 +20,9 @@
     "build": {
       "dependsOn": ["^build", "type-check", "lint", "^db:generate"],
       "outputs": ["build/*"]
+    },
+    "precommit": {
+      "dependsOn": ["type-check", "lint"]
     }
   }
 }

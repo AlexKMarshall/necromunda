@@ -6,7 +6,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "precommit": "turbo run precommit"
   },
   "keywords": [],
   "author": "",

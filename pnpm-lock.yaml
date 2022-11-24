@@ -102,6 +102,25 @@ importers:
       '@necromunda/tsconfig': link:../tsconfig
       typescript: 4.9.3
 
+  packages/types:
+    specifiers:
+      '@necromunda/tsconfig': workspace:*
+      '@types/uuid': ^8.3.4
+      eslint-config-custom: workspace:*
+      fp-ts: ^2.13.1
+      io-ts: ^2.2.19
+      typescript: ^4.9.3
+      uuid: ^9.0.0
+    dependencies:
+      fp-ts: 2.13.1
+      io-ts: 2.2.19_fp-ts@2.13.1
+      uuid: 9.0.0
+    devDependencies:
+      '@necromunda/tsconfig': link:../tsconfig
+      '@types/uuid': 8.3.4
+      eslint-config-custom: link:../eslint-config-custom
+      typescript: 4.9.3
+
 packages:
 
   /@ampproject/remapping/2.2.0:
@@ -1943,6 +1962,10 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+    dev: true
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.44.0_fnsv2sbzcckq65bwfk7a5xwslu:
@@ -7389,6 +7412,11 @@ packages:
   /utils-merge/1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /uvu/0.5.6:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}

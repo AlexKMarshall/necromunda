@@ -8,6 +8,7 @@
       "cache": false
     },
     "dev": {
+      "dependsOn": ["^db:generate"],
       "cache": false
     },
     "lint": {
@@ -17,7 +18,7 @@
       "outputs": []
     },
     "build": {
-      "dependsOn": ["^build", "type-check", "lint"],
+      "dependsOn": ["^build", "type-check", "lint", "^db:generate"],
       "outputs": ["build/*"]
     }
   }

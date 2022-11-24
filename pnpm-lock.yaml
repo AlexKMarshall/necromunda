@@ -10,7 +10,8 @@ importers:
 
   apps/web:
     specifiers:
-      '@necromunda/reference-data': workspace:^0.0.0
+      '@necromunda/reference-data': workspace:*
+      '@necromunda/tsconfig': workspace:^0.0.0
       '@remix-run/dev': ^1.7.6
       '@remix-run/eslint-config': ^1.7.6
       '@remix-run/node': ^1.7.6
@@ -32,6 +33,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      '@necromunda/tsconfig': link:../../packages/tsconfig
       '@remix-run/dev': 1.7.6_4vz2e3qrixth2olsykapxulhwu
       '@remix-run/eslint-config': 1.7.6_tty5jzdb2vdusfh2ebxkvntpay
       '@types/react': 18.0.25

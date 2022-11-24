@@ -8,7 +8,7 @@
     "start": "remix-serve build"
   },
   "dependencies": {
-    "@necromunda/reference-data": "workspace:^0.0.0",
+    "@necromunda/reference-data": "workspace:*",
     "@remix-run/node": "^1.7.6",
     "@remix-run/react": "^1.7.6",
     "@remix-run/serve": "^1.7.6",
@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@necromunda/tsconfig": "workspace:^0.0.0",
     "@remix-run/dev": "^1.7.6",
     "@remix-run/eslint-config": "^1.7.6",
     "@types/react": "^18.0.25",

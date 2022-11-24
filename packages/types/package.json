@@ -1,5 +1,5 @@
 {
-  "name": "@necromunda/reference-data",
+  "name": "@necromunda/types",
   "version": "0.0.0",
   "description": "",
   "main": "./src/index.ts",
@@ -13,14 +13,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@necromunda/tsconfig": "workspace:^0.0.0",
-    "eslint-config-custom": "workspace:^0.0.0",
+    "@necromunda/tsconfig": "workspace:*",
+    "@types/uuid": "^8.3.4",
+    "eslint-config-custom": "workspace:*",
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@necromunda/one": "workspace:^0.0.0",
-    "@necromunda/types": "workspace:^0.0.0",
     "fp-ts": "^2.13.1",
-    "io-ts": "^2.2.19"
+    "io-ts": "^2.2.19",
+    "uuid": "^9.0.0"
   }
 }

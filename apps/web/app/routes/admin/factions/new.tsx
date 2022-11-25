@@ -4,6 +4,7 @@ import { redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { flow, pipe } from "fp-ts/function";
 import type { Faction } from "@necromunda/reference-data";
+import { CreateFactionDecodingError } from "@necromunda/reference-data";
 import {
   createFaction,
   FactionNameAlreadyExistsError,
@@ -39,6 +40,9 @@ const createFactionPipeline = flow(
             { status: 400 }
           )
         );
+      }
+      if (CreateFactionDecodingError.is(e)) {
+        return T.of(json({ error: "Bad form input" }, { status: 400 }));
       }
       return T.of(
         json(

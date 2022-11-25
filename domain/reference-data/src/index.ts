@@ -1,5 +1,4 @@
-import { one } from "@necromunda/one";
-
 export const domain = "domain";
-export const referenceData = `${one} reference-data`;
+export const referenceData = `reference-data`;
 export * from "./faction";
+export * from "./errors";

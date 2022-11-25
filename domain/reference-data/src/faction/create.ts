@@ -1,12 +1,13 @@
 import { pipe, flow } from "fp-ts/function";
 import * as D from "io-ts/Decoder";
 import * as TE from "fp-ts/TaskEither";
-import { generateUUID, UUID } from "@necromunda/types";
-
-type UnvalidatedFaction = {
-  name: string;
-  description?: string;
-};
+import {
+  generateUUID,
+  stringMaxLength,
+  stringMinLength,
+  UUID,
+} from "@necromunda/types";
+import { FactionNameAlreadyExistsError } from "../errors";
 
 type FactionIdBrand = {
   readonly FactionId: unique symbol;
@@ -15,42 +16,34 @@ type FactionId = UUID & FactionIdBrand;
 
 const generateFactionId = (): FactionId => generateUUID() as FactionId;
 
-const FactionDecoder = pipe(
+export const createFactionInputDecoder = pipe(
   D.struct({
-    name: D.string,
+    name: pipe(
+      D.string,
+      D.compose(pipe(stringMinLength(3), D.intersect(stringMaxLength(50))))
+    ),
   }),
   D.intersect(
     D.partial({
-      description: D.string,
+      description: pipe(D.string, D.compose(stringMaxLength(500))),
     })
   )
 );
 
-type FactionName = D.TypeOf<typeof FactionDecoder>["name"];
+type FactionName = D.TypeOf<typeof createFactionInputDecoder>["name"];
 
 type CheckFactionNameExists<NonDomainError> = (
   name: FactionName
 ) => TE.TaskEither<NonDomainError, boolean>;
 
-class DomainError extends Error {
-  public _tag = "DomainError";
-  constructor(message?: string) {
-    super(message);
+class FactionDecodingError extends Error {
+  public _tag = "FactionDecodingError";
+  constructor(public decodeError: D.DecodeError) {
+    super(`Faction decoding error: ${D.draw(decodeError)}`);
   }
 
-  public static of(message?: string): DomainError {
-    return new DomainError(message);
-  }
-}
-
-class FactionNameAlreadyExistsError extends DomainError {
-  public _tag = "FactionNameAlreadyExistsError";
-  constructor(name: string) {
-    super(`Faction with name ${name} already exists`);
-  }
-
-  public static of(name: string): FactionNameAlreadyExistsError {
-    return new FactionNameAlreadyExistsError(name);
+  public static of(decodeError: D.DecodeError): FactionDecodingError {
+    return new FactionDecodingError(decodeError);
   }
 }
 
@@ -72,23 +65,19 @@ const toUniqueFactionName =
       )
     );
 
-export type Faction = D.TypeOf<typeof FactionDecoder> & {
+export type Faction = D.TypeOf<typeof createFactionInputDecoder> & {
   name: UniqueFactionName;
   id: FactionId;
 };
 
 const validateFaction =
   <E>(checkFactionNameExists: CheckFactionNameExists<E>) =>
-  (
-    unvalidatedFaction: UnvalidatedFaction
-  ): TE.TaskEither<
-    D.DecodeError | FactionNameAlreadyExistsError | E,
-    Faction
-  > =>
+  (unvalidatedFaction: unknown) =>
     pipe(
       unvalidatedFaction,
-      FactionDecoder.decode,
+      createFactionInputDecoder.decode,
       TE.fromEither,
+      TE.mapLeft(FactionDecodingError.of),
       TE.chainW(({ name, ...rest }) =>
         pipe(
           TE.Do,

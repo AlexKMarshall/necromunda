@@ -1,4 +1,5 @@
 import type { ActionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import { flow, pipe } from "fp-ts/function";
 import type { Faction } from "@necromunda/reference-data";
@@ -29,13 +30,13 @@ const createFactionPipeline = flow(
       console.error(e);
       return T.of(e);
     },
-    () => T.of({ redirect: "/admin/factions" })
+    () => T.of(redirect("/admin/factions"))
   )
 );
 
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
-  const unvalidatedFactionForm = Object.fromEntries(formData.entries()) as any;
+  const unvalidatedFactionForm = Object.fromEntries(formData.entries());
 
   return createFactionPipeline(unvalidatedFactionForm)();
 };

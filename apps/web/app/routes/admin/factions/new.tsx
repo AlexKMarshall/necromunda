@@ -31,39 +31,65 @@ const createFactionPipeline = flow(
   TE.map(({ createdFaction }) => createdFaction),
   TE.chainW(saveFactionToDB),
   TE.foldW(
-    (e) => {
-      console.error(e);
-      if (FactionNameAlreadyExistsError.is(e)) {
-        return T.of(
-          json(
-            { error: `Faction name ${e.factionName} already exists` },
-            { status: 400 }
-          )
-        );
-      }
-      if (CreateFactionDecodingError.is(e)) {
-        return T.of(json({ error: "Bad form input" }, { status: 400 }));
-      }
-      return T.of(
-        json(
-          { error: "Something went wrong, please try again later" },
-          { status: 500 }
-        )
-      );
-    },
-    () => T.of(redirect("/admin/factions"))
+    (e) => T.of(handleFormErrors(e)),
+    () => T.of({ success: true })
   )
 );
+
+type FormErrors = {
+  _tag: "FormErrors";
+  fieldErrors?: {
+    name?: string[];
+    description?: string[];
+  };
+  formErrors?: string[];
+};
+
+type UnexpectedError = {
+  _tag: "UnexpectedError";
+  unexpectedError: unknown;
+};
+
+const handleFormErrors = <E extends unknown>(
+  error: E
+): FormErrors | UnexpectedError => {
+  if (FactionNameAlreadyExistsError.is(error)) {
+    return {
+      _tag: "FormErrors",
+      fieldErrors: {
+        name: [`Faction name "${error.factionName}" already exists`],
+      },
+    };
+  }
+  if (CreateFactionDecodingError.is(error)) {
+    return {
+      _tag: "FormErrors",
+      formErrors: ["Bad form input"],
+    };
+  }
+  return {
+    _tag: "UnexpectedError",
+    unexpectedError: "Something went wrong, please try again later",
+  };
+};
 
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const unvalidatedFactionForm = Object.fromEntries(formData.entries());
 
-  return createFactionPipeline(unvalidatedFactionForm)();
+  const run = createFactionPipeline(unvalidatedFactionForm);
+  const result = await run();
+  if ("success" in result) {
+    return redirect("/admin/factions");
+  }
+  if (result._tag === "UnexpectedError") {
+    throw result.unexpectedError;
+  }
+  return json(result, { status: 400 });
 };
 
 export default function FactionsNewRoute() {
-  const data = useActionData<typeof action>();
+  const errors = useActionData<typeof action>();
   return (
     <div>
       <h2>New Faction</h2>
@@ -72,12 +98,15 @@ export default function FactionsNewRoute() {
           Name
           <input type="text" name="name" />
         </label>
+        {errors?.fieldErrors?.name && (
+          <p>{errors.fieldErrors.name.join(", ")}</p>
+        )}
         <label>
           Description
           <textarea name="description" />
         </label>
         <button type="submit">Create</button>
-        {data?.error && <p>{data.error}</p>}
+        {errors?.formErrors && <p>{errors.formErrors.join(", ")}</p>}
       </Form>
     </div>
   );

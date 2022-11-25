@@ -6,7 +6,6 @@ export class DomainError extends Error {
 }
 
 const of = (message?: string): DomainError => new DomainError(message);
-const isDomainError = (e: unknown): e is DomainError =>
-  e instanceof DomainError;
+const is = (e: unknown): e is DomainError => e instanceof DomainError;
 
-export const publicMethods = { of, isDomainError };
+export const publicMethods = { of, is };

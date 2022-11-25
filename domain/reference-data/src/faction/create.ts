@@ -7,7 +7,10 @@ import {
   stringMinLength,
   UUID,
 } from "@necromunda/types";
-import { FactionNameAlreadyExistsError } from "../errors";
+import {
+  CreateFactionDecodingError,
+  FactionNameAlreadyExistsError,
+} from "../errors";
 
 type FactionIdBrand = {
   readonly FactionId: unique symbol;
@@ -16,7 +19,7 @@ type FactionId = UUID & FactionIdBrand;
 
 const generateFactionId = (): FactionId => generateUUID() as FactionId;
 
-export const createFactionInputDecoder = pipe(
+const createFactionDecoder = pipe(
   D.struct({
     name: pipe(
       D.string,
@@ -30,22 +33,11 @@ export const createFactionInputDecoder = pipe(
   )
 );
 
-type FactionName = D.TypeOf<typeof createFactionInputDecoder>["name"];
+type FactionName = D.TypeOf<typeof createFactionDecoder>["name"];
 
 type CheckFactionNameExists<NonDomainError> = (
   name: FactionName
 ) => TE.TaskEither<NonDomainError, boolean>;
-
-class FactionDecodingError extends Error {
-  public _tag = "FactionDecodingError";
-  constructor(public decodeError: D.DecodeError) {
-    super(`Faction decoding error: ${D.draw(decodeError)}`);
-  }
-
-  public static of(decodeError: D.DecodeError): FactionDecodingError {
-    return new FactionDecodingError(decodeError);
-  }
-}
 
 type UniqueFactionNameBrand = {
   readonly UniqueFactionName: unique symbol;
@@ -65,7 +57,7 @@ const toUniqueFactionName =
       )
     );
 
-export type Faction = D.TypeOf<typeof createFactionInputDecoder> & {
+export type Faction = D.TypeOf<typeof createFactionDecoder> & {
   name: UniqueFactionName;
   id: FactionId;
 };
@@ -75,9 +67,9 @@ const validateFaction =
   (unvalidatedFaction: unknown) =>
     pipe(
       unvalidatedFaction,
-      createFactionInputDecoder.decode,
+      createFactionDecoder.decode,
       TE.fromEither,
-      TE.mapLeft(FactionDecodingError.of),
+      TE.mapLeft(CreateFactionDecodingError.of),
       TE.chainW(({ name, ...rest }) =>
         pipe(
           TE.Do,

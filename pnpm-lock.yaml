@@ -57,14 +57,12 @@ importers:
       '@necromunda/types': workspace:^0.0.0
       eslint-config-custom: workspace:^0.0.0
       fp-ts: ^2.13.1
-      io-ts: ^2.2.19
       typescript: ^4.9.3
       zod: ^3.19.1
     dependencies:
       '@necromunda/one': link:../../packages/one
       '@necromunda/types': link:../../packages/types
       fp-ts: 2.13.1
-      io-ts: 2.2.19_fp-ts@2.13.1
       zod: 3.19.1
     devDependencies:
       '@necromunda/tsconfig': link:../../packages/tsconfig

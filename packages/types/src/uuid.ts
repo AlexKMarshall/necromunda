@@ -1,16 +1,7 @@
-import { pipe } from "fp-ts/function";
-import * as D from "io-ts/Decoder";
-import { validate, v4 } from "uuid";
+import { v4 } from "uuid";
+import { z } from "zod";
 
-type UUIDBrand = {
-  readonly UUID: unique symbol;
-};
+const UUIDSchema = z.string().uuid().brand<"UUID">();
+export type UUID = z.TypeOf<typeof UUIDSchema>;
 
-export type UUID = string & UUIDBrand;
-
-export const UUIDDecoder: D.Decoder<unknown, UUID> = pipe(
-  D.string,
-  D.refine((s): s is UUID => validate(s), "UUID")
-);
-
-export const generateUUID = (): UUID => v4() as UUID;
+export const generateUUID = () => v4() as UUID;

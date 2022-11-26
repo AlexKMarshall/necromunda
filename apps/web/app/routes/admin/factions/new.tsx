@@ -4,14 +4,13 @@ import { redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { flow, pipe } from "fp-ts/function";
 import type { Faction } from "@necromunda/reference-data";
-import { CreateFactionDecodingError } from "@necromunda/reference-data";
+import { ParsingError } from "@necromunda/reference-data";
 import {
   createFaction,
   FactionNameAlreadyExistsError,
 } from "@necromunda/reference-data";
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
-import * as T from "fp-ts/Task";
 import { DBError } from "~/errors";
 
 const checkFactionNameExists = (name: string) =>
@@ -29,12 +28,16 @@ const saveFactionToDB = (faction: Faction) =>
 const createFactionPipeline = flow(
   createFaction(checkFactionNameExists),
   TE.map(({ createdFaction }) => createdFaction),
-  TE.chainW(saveFactionToDB),
-  TE.foldW(
-    (e) => T.of(handleFormErrors(e)),
-    () => T.of({ success: true })
-  )
+  TE.chainW(saveFactionToDB)
 );
+
+type TaskEitherLeftType<TE> = TE extends TE.TaskEither<infer L, any>
+  ? L
+  : never;
+
+type CreateFactionPipelineError = TaskEitherLeftType<
+  ReturnType<typeof createFactionPipeline>
+>;
 
 type FormErrors = {
   _tag: "FormErrors";
@@ -50,8 +53,8 @@ type UnexpectedError = {
   unexpectedError: unknown;
 };
 
-const handleFormErrors = <E extends unknown>(
-  error: E
+const handleFormErrors = (
+  error: CreateFactionPipelineError
 ): FormErrors | UnexpectedError => {
   if (FactionNameAlreadyExistsError.is(error)) {
     return {
@@ -61,15 +64,22 @@ const handleFormErrors = <E extends unknown>(
       },
     };
   }
-  if (CreateFactionDecodingError.is(error)) {
+  if (error instanceof DBError) {
     return {
-      _tag: "FormErrors",
-      formErrors: ["Bad form input"],
+      _tag: "UnexpectedError",
+      unexpectedError: error,
     };
   }
+  if (ParsingError.is(error)) {
+    return {
+      _tag: "FormErrors",
+      ...error.errors,
+    };
+  }
+
   return {
     _tag: "UnexpectedError",
-    unexpectedError: "Something went wrong, please try again later",
+    unexpectedError: error,
   };
 };
 
@@ -77,15 +87,25 @@ export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const unvalidatedFactionForm = Object.fromEntries(formData.entries());
 
-  const run = createFactionPipeline(unvalidatedFactionForm);
+  const run = pipe(
+    unvalidatedFactionForm,
+    createFactionPipeline,
+    TE.mapLeft(handleFormErrors),
+    TE.map(() => ({ _tag: "success" as const })),
+    TE.toUnion
+  );
+
   const result = await run();
-  if ("success" in result) {
+
+  if (result._tag === "success") {
     return redirect("/admin/factions");
   }
-  if (result._tag === "UnexpectedError") {
-    throw result.unexpectedError;
+
+  if (result._tag === "FormErrors") {
+    return json(result, { status: 400 });
   }
-  return json(result, { status: 400 });
+
+  throw result.unexpectedError;
 };
 
 export default function FactionsNewRoute() {

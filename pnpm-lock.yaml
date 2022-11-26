@@ -29,6 +29,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       typescript: ^4.8.4
+      zod: ^3.19.1
     dependencies:
       '@necromunda/database': link:../../infrastructure/database
       '@necromunda/reference-data': link:../../domain/reference-data
@@ -39,6 +40,7 @@ importers:
       isbot: 3.6.5
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      zod: 3.19.1
     devDependencies:
       '@necromunda/tsconfig': link:../../packages/tsconfig
       '@remix-run/dev': 1.7.6_4vz2e3qrixth2olsykapxulhwu
@@ -57,11 +59,13 @@ importers:
       fp-ts: ^2.13.1
       io-ts: ^2.2.19
       typescript: ^4.9.3
+      zod: ^3.19.1
     dependencies:
       '@necromunda/one': link:../../packages/one
       '@necromunda/types': link:../../packages/types
       fp-ts: 2.13.1
       io-ts: 2.2.19_fp-ts@2.13.1
+      zod: 3.19.1
     devDependencies:
       '@necromunda/tsconfig': link:../../packages/tsconfig
       eslint-config-custom: link:../../packages/eslint-config-custom
@@ -126,10 +130,12 @@ importers:
       io-ts: ^2.2.19
       typescript: ^4.9.3
       uuid: ^9.0.0
+      zod: ^3.19.1
     dependencies:
       fp-ts: 2.13.1
       io-ts: 2.2.19_fp-ts@2.13.1
       uuid: 9.0.0
+      zod: 3.19.1
     devDependencies:
       '@necromunda/tsconfig': link:../tsconfig
       '@types/uuid': 8.3.4
@@ -7661,6 +7667,10 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: false
 
   /zwitch/2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}

@@ -4,14 +4,13 @@ import { redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { flow, pipe } from "fp-ts/function";
 import type { Faction } from "@necromunda/reference-data";
-import { CreateFactionDecodingError } from "@necromunda/reference-data";
+import { ParsingError } from "@necromunda/reference-data";
 import {
   createFaction,
   FactionNameAlreadyExistsError,
 } from "@necromunda/reference-data";
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
-import * as T from "fp-ts/Task";
 import { DBError } from "~/errors";
 
 const checkFactionNameExists = (name: string) =>
@@ -29,41 +28,88 @@ const saveFactionToDB = (faction: Faction) =>
 const createFactionPipeline = flow(
   createFaction(checkFactionNameExists),
   TE.map(({ createdFaction }) => createdFaction),
-  TE.chainW(saveFactionToDB),
-  TE.foldW(
-    (e) => {
-      console.error(e);
-      if (FactionNameAlreadyExistsError.is(e)) {
-        return T.of(
-          json(
-            { error: `Faction name ${e.factionName} already exists` },
-            { status: 400 }
-          )
-        );
-      }
-      if (CreateFactionDecodingError.is(e)) {
-        return T.of(json({ error: "Bad form input" }, { status: 400 }));
-      }
-      return T.of(
-        json(
-          { error: "Something went wrong, please try again later" },
-          { status: 500 }
-        )
-      );
-    },
-    () => T.of(redirect("/admin/factions"))
-  )
+  TE.chainW(saveFactionToDB)
 );
+
+type TaskEitherLeftType<TE> = TE extends TE.TaskEither<infer L, any>
+  ? L
+  : never;
+
+type CreateFactionPipelineError = TaskEitherLeftType<
+  ReturnType<typeof createFactionPipeline>
+>;
+
+type FormErrors = {
+  _tag: "FormErrors";
+  fieldErrors?: {
+    name?: string[];
+    description?: string[];
+  };
+  formErrors?: string[];
+};
+
+type UnexpectedError = {
+  _tag: "UnexpectedError";
+  unexpectedError: unknown;
+};
+
+const handleFormErrors = (
+  error: CreateFactionPipelineError
+): FormErrors | UnexpectedError => {
+  if (FactionNameAlreadyExistsError.is(error)) {
+    return {
+      _tag: "FormErrors",
+      fieldErrors: {
+        name: [`Faction name "${error.factionName}" already exists`],
+      },
+    };
+  }
+  if (error instanceof DBError) {
+    return {
+      _tag: "UnexpectedError",
+      unexpectedError: error,
+    };
+  }
+  if (ParsingError.is(error)) {
+    return {
+      _tag: "FormErrors",
+      ...error.errors,
+    };
+  }
+
+  return {
+    _tag: "UnexpectedError",
+    unexpectedError: error,
+  };
+};
 
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const unvalidatedFactionForm = Object.fromEntries(formData.entries());
 
-  return createFactionPipeline(unvalidatedFactionForm)();
+  const run = pipe(
+    unvalidatedFactionForm,
+    createFactionPipeline,
+    TE.mapLeft(handleFormErrors),
+    TE.map(() => ({ _tag: "success" as const })),
+    TE.toUnion
+  );
+
+  const result = await run();
+
+  if (result._tag === "success") {
+    return redirect("/admin/factions");
+  }
+
+  if (result._tag === "FormErrors") {
+    return json(result, { status: 400 });
+  }
+
+  throw result.unexpectedError;
 };
 
 export default function FactionsNewRoute() {
-  const data = useActionData<typeof action>();
+  const errors = useActionData<typeof action>();
   return (
     <div>
       <h2>New Faction</h2>
@@ -72,12 +118,15 @@ export default function FactionsNewRoute() {
           Name
           <input type="text" name="name" />
         </label>
+        {errors?.fieldErrors?.name && (
+          <p>{errors.fieldErrors.name.join(", ")}</p>
+        )}
         <label>
           Description
           <textarea name="description" />
         </label>
         <button type="submit">Create</button>
-        {data?.error && <p>{data.error}</p>}
+        {errors?.formErrors && <p>{errors.formErrors.join(", ")}</p>}
       </Form>
     </div>
   );

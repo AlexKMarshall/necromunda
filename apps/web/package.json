@@ -8,6 +8,7 @@
     "start": "remix-serve build",
     "type-check": "tsc --noEmit",
     "lint": "TIMING=1 eslint \"**/*.ts*\"",
+    "test:deps": "pnpm exec playwright install",
     "test": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {

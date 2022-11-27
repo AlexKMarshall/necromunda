@@ -12,7 +12,7 @@ type FactionId = UUID & FactionIdBrand;
 
 const generateFactionId = (): FactionId => generateUUID() as FactionId;
 
-const createFactionSchema = z.object({
+export const createFactionSchema = z.object({
   name: z.string().min(1).max(50),
   description: z.string().max(500).optional().default(""),
 });

@@ -7,11 +7,13 @@ import type { Faction } from "@necromunda/reference-data";
 import { ParsingError } from "@necromunda/reference-data";
 import {
   createFaction,
+  createFactionSchema,
   FactionNameAlreadyExistsError,
 } from "@necromunda/reference-data";
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
 import { DBError } from "~/errors";
+import { useRef, useState } from "react";
 
 const checkFactionNameExists = (name: string) =>
   pipe(
@@ -116,14 +118,37 @@ export default function FactionsNewRoute() {
       <Form method="post">
         <label>
           Name
-          <input type="text" name="name" />
+          <input
+            type="text"
+            name="name"
+            required={
+              createFactionSchema.shape.name.isOptional() ? undefined : true
+            }
+            minLength={createFactionSchema.shape.name.minLength ?? undefined}
+            maxLength={createFactionSchema.shape.name.maxLength ?? undefined}
+          />
         </label>
         {errors?.fieldErrors?.name && (
           <p>{errors.fieldErrors.name.join(", ")}</p>
         )}
         <label>
           Description
-          <textarea name="description" />
+          <textarea
+            name="description"
+            required={
+              createFactionSchema.shape.description.isOptional()
+                ? undefined
+                : true
+            }
+            minLength={
+              createFactionSchema.shape.description.removeDefault().unwrap()
+                .minLength ?? undefined
+            }
+            maxLength={
+              createFactionSchema.shape.description.removeDefault().unwrap()
+                .maxLength ?? undefined
+            }
+          />
         </label>
         <button type="submit">Create</button>
         {errors?.formErrors && <p>{errors.formErrors.join(", ")}</p>}

@@ -39,5 +39,4 @@ jobs:
         run: pnpm build
 
       - name: Test
-        run: pnpm exec playwright install
         run: pnpm test

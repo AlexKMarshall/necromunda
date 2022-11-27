@@ -14,11 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "@necromunda/tsconfig": "workspace:^0.0.0",
+    "eslint": "^8.27.0",
     "eslint-config-custom": "workspace:^0.0.0",
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@necromunda/one": "workspace:^0.0.0",
     "@necromunda/types": "workspace:^0.0.0",
     "fp-ts": "^2.13.1",
     "zod": "^3.19.1"

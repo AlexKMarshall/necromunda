@@ -1,4 +1,3 @@
-import * as referenceData from "@necromunda/reference-data";
 import { Link } from "@remix-run/react";
 
 export default function Index() {
@@ -32,7 +31,6 @@ export default function Index() {
             Remix Docs
           </a>
         </li>
-        <li>{referenceData.referenceData}</li>
       </ul>
     </div>
   );

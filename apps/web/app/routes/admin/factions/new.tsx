@@ -13,7 +13,6 @@ import {
 import * as TE from "fp-ts/TaskEither";
 import { prisma } from "~/db.server";
 import { DBError } from "~/errors";
-import { useRef, useState } from "react";
 
 const checkFactionNameExists = (name: string) =>
   pipe(

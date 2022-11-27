@@ -6,8 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "type-check": "tsc --noEmit",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +14,7 @@
   "devDependencies": {
     "@necromunda/tsconfig": "workspace:*",
     "@types/uuid": "^8.3.4",
+    "eslint": "^8.27.0",
     "eslint-config-custom": "workspace:*",
     "typescript": "^4.9.3"
   },

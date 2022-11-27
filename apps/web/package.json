@@ -7,7 +7,9 @@
     "dev": "remix dev",
     "start": "remix-serve build",
     "type-check": "tsc --noEmit",
-    "lint": "TIMING=1 eslint \"**/*.ts*\""
+    "lint": "TIMING=1 eslint \"**/*.ts*\"",
+    "test:deps": "pnpm exec playwright install --with-deps",
+    "test": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {
     "@necromunda/database": "workspace:*",
@@ -23,6 +25,8 @@
   },
   "devDependencies": {
     "@necromunda/tsconfig": "workspace:^0.0.0",
+    "@playwright/experimental-ct-react": "^1.28.1",
+    "@playwright/test": "^1.28.1",
     "@remix-run/dev": "^1.7.6",
     "@remix-run/eslint-config": "^1.7.6",
     "@types/react": "^18.0.25",

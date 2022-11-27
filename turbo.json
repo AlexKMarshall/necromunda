@@ -17,6 +17,13 @@
     "type-check": {
       "outputs": []
     },
+    "test:deps": {
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["test:deps"],
+      "outputs": ["playwright-report/*"]
+    },
     "build": {
       "dependsOn": ["^build", "type-check", "lint", "^db:generate"],
       "outputs": ["build/*"]

@@ -76,11 +76,11 @@ importers:
   infrastructure/database:
     specifiers:
       '@prisma/client': latest
-      prisma: 4.6.1
+      prisma: 4.7.0
     dependencies:
-      '@prisma/client': 4.6.1_prisma@4.6.1
+      '@prisma/client': 4.7.0_prisma@4.7.0
     devDependencies:
-      prisma: 4.6.1
+      prisma: 4.7.0
 
   packages/eslint-config-custom:
     specifiers:
@@ -1656,8 +1656,8 @@ packages:
       playwright-core: 1.28.1
     dev: true
 
-  /@prisma/client/4.6.1_prisma@4.6.1:
-    resolution: {integrity: sha512-M1+NNrMzqaOIxT7PBGcTs3IZo7d1EW/+gVQd4C4gUgWBDGgD9AcIeZnUSidgWClmpMSgVUdnVORjsWWGUameYA==}
+  /@prisma/client/4.7.0_prisma@4.7.0:
+    resolution: {integrity: sha512-keXMa0oJWJGOzMEFKp+CEgzJPwnOtGSrnTWw6qMYxnypYrRFdNxqyA06EzELZexBhgM4oLooZ1jDJ3iy46wExA==}
     engines: {node: '>=14.17'}
     requiresBuild: true
     peerDependencies:
@@ -1666,16 +1666,16 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 4.6.1-3.694eea289a8462c80264df36757e4fdc129b1b32
-      prisma: 4.6.1
+      '@prisma/engines-version': 4.7.0-74.39190b250ebc338586e25e6da45e5e783bc8a635
+      prisma: 4.7.0
     dev: false
 
-  /@prisma/engines-version/4.6.1-3.694eea289a8462c80264df36757e4fdc129b1b32:
-    resolution: {integrity: sha512-HUCmkXAU2jqp2O1RvNtbE+seLGLyJGEABZS/R38rZjSAafAy0WzBuHq+tbZMnD+b5OSCsTVtIPVcuvx1ySxcWQ==}
+  /@prisma/engines-version/4.7.0-74.39190b250ebc338586e25e6da45e5e783bc8a635:
+    resolution: {integrity: sha512-ImczGEQ8NS1OUApEeyAGxC4uLTtQp0wI1+2wM4MeQLVwIQbyMHk1vOhWWE8Pwbi3rnzLcPvsIrd9sm6oNXhERw==}
     dev: false
 
-  /@prisma/engines/4.6.1:
-    resolution: {integrity: sha512-3u2/XxvxB+Q7cMXHnKU0CpBiUK1QWqpgiBv28YDo1zOIJE3FCF8DI2vrp6vuwjGt5h0JGXDSvmSf4D4maVjJdw==}
+  /@prisma/engines/4.7.0:
+    resolution: {integrity: sha512-afKrVFktaZ1pOK12/uFl2hRsBWIJZuC5FdDtacuKk5x/mR+rC5AbA+PlN3ZCZbmYTaeiBMHjcU5wbT5z2N3nSQ==}
     requiresBuild: true
 
   /@remix-run/dev/1.7.6_4vz2e3qrixth2olsykapxulhwu:
@@ -6514,13 +6514,13 @@ packages:
       parse-ms: 2.1.0
     dev: true
 
-  /prisma/4.6.1:
-    resolution: {integrity: sha512-BR4itMCuzrDV4tn3e2TF+nh1zIX/RVU0isKtKoN28ADeoJ9nYaMhiuRRkFd2TZN8+l/XfYzoRKyHzUFXLQhmBQ==}
+  /prisma/4.7.0:
+    resolution: {integrity: sha512-VsecNo0Ca3+bDTzSpJqIpdupKVhhQ8aOYeWc09JlUM89knqvhSrlMrg0U8BiOD4tFrY1OPaCcraK8leDBxKMBg==}
     engines: {node: '>=14.17'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 4.6.1
+      '@prisma/engines': 4.7.0
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}

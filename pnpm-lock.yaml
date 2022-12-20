@@ -105,7 +105,7 @@ importers:
   packages/types:
     specifiers:
       '@necromunda/tsconfig': workspace:*
-      '@types/uuid': ^8.3.4
+      '@types/uuid': ^9.0.0
       eslint: ^8.27.0
       eslint-config-custom: workspace:*
       fp-ts: ^2.13.1
@@ -120,7 +120,7 @@ importers:
       zod: 3.19.1
     devDependencies:
       '@necromunda/tsconfig': link:../tsconfig
-      '@types/uuid': 8.3.4
+      '@types/uuid': 9.0.0
       eslint: 8.28.0
       eslint-config-custom: link:../eslint-config-custom
       typescript: 4.9.3
@@ -2054,8 +2054,8 @@ packages:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: true
 
-  /@types/uuid/8.3.4:
-    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+  /@types/uuid/9.0.0:
+    resolution: {integrity: sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.44.0_fnsv2sbzcckq65bwfk7a5xwslu:

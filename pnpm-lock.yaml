@@ -78,7 +78,7 @@ importers:
       '@prisma/client': latest
       prisma: 4.16.2
     dependencies:
-      '@prisma/client': 4.16.2_prisma@4.16.2
+      '@prisma/client': 5.1.1_prisma@4.16.2
     devDependencies:
       prisma: 4.16.2
 
@@ -87,14 +87,14 @@ importers:
       '@typescript-eslint/eslint-plugin': ^5.44.0
       '@typescript-eslint/parser': ^5.44.0
       eslint: ^8.27.0
-      eslint-config-prettier: ^8.5.0
+      eslint-config-prettier: ^9.0.0
       eslint-config-turbo: ^0.0.10
       typescript: ^4.9.3
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.44.0_fnsv2sbzcckq65bwfk7a5xwslu
       '@typescript-eslint/parser': 5.44.0_hsf322ms6xhhd4b5ne6lb74y4a
       eslint: 8.28.0
-      eslint-config-prettier: 8.5.0_eslint@8.28.0
+      eslint-config-prettier: 9.0.0_eslint@8.28.0
       eslint-config-turbo: 0.0.10_eslint@8.28.0
     devDependencies:
       typescript: 4.9.3
@@ -1656,9 +1656,9 @@ packages:
       playwright-core: 1.28.1
     dev: true
 
-  /@prisma/client/4.16.2_prisma@4.16.2:
-    resolution: {integrity: sha512-qCoEyxv1ZrQ4bKy39GnylE8Zq31IRmm8bNhNbZx7bF2cU5aiCCnSa93J2imF88MBjn7J9eUQneNxUQVJdl/rPQ==}
-    engines: {node: '>=14.17'}
+  /@prisma/client/5.1.1_prisma@4.16.2:
+    resolution: {integrity: sha512-fxcCeK5pMQGcgCqCrWsi+I2rpIbk0rAhdrN+ke7f34tIrgPwA68ensrpin+9+fZvuV2OtzHmuipwduSY6HswdA==}
+    engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
       prisma: '*'
@@ -1666,12 +1666,12 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81
+      '@prisma/engines-version': 5.1.1-1.6a3747c37ff169c90047725a05a6ef02e32ac97e
       prisma: 4.16.2
     dev: false
 
-  /@prisma/engines-version/4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81:
-    resolution: {integrity: sha512-q617EUWfRIDTriWADZ4YiWRZXCa/WuhNgLTVd+HqWLffjMSPzyM5uOWoauX91wvQClSKZU4pzI4JJLQ9Kl62Qg==}
+  /@prisma/engines-version/5.1.1-1.6a3747c37ff169c90047725a05a6ef02e32ac97e:
+    resolution: {integrity: sha512-owZqbY/wucbr65bXJ/ljrHPgQU5xXTSkmcE/JcbqE1kusuAXV/TLN3/exmz21SZ5rJ7WDkyk70J2G/n68iogbQ==}
     dev: false
 
   /@prisma/engines/4.16.2:
@@ -3689,8 +3689,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-prettier/8.5.0_eslint@8.28.0:
-    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
+  /eslint-config-prettier/9.0.0_eslint@8.28.0:
+    resolution: {integrity: sha512-IcJsTkJae2S35pRsRAwoCE+925rJJStOdkKnLVgtE+tEpqU0EVVM7OqrwxqgptKdX29NUwC82I5pXsGFIgSevw==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'

@@ -4,12 +4,12 @@ importers:
 
   .:
     specifiers:
-      prettier: ^2.8.0
+      prettier: ^3.0.0
       turbo: ^1.6.3
     dependencies:
       turbo: 1.6.3
     devDependencies:
-      prettier: 2.8.8
+      prettier: 3.3.2
 
   apps/web:
     specifiers:
@@ -6521,9 +6521,9 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier/2.8.8:
-    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.3.2:
+    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 

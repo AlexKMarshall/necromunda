@@ -39,7 +39,7 @@ importers:
       '@remix-run/react': 1.7.6_biqbaboplfbrettd7655fr4n2y
       '@remix-run/serve': 1.7.6_biqbaboplfbrettd7655fr4n2y
       fp-ts: 2.13.1
-      isbot: 3.6.5
+      isbot: 3.8.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       zod: 3.19.1
@@ -78,7 +78,7 @@ importers:
       '@prisma/client': latest
       prisma: 4.16.2
     dependencies:
-      '@prisma/client': 5.15.1_prisma@4.16.2
+      '@prisma/client': 7.10.0_prisma@4.16.2
     devDependencies:
       prisma: 4.16.2
 
@@ -1675,16 +1675,23 @@ packages:
       playwright-core: 1.28.1
     dev: true
 
-  /@prisma/client/5.15.1_prisma@4.16.2:
-    resolution: {integrity: sha512-fmZRGmsUJ9+VwC/AvfP/PwdpD0xAEyPvNsD9/B3+GYpETq9VejVRT3PiqNvl76q1uYYzNZeo8u/LmzzTetHSEg==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
+  /@prisma/client-runtime-utils/7.10.0:
+    resolution: {integrity: sha512-cnCy7lUV8/CctgKVEmqAbSLAmwqJdE/qAlqTBk/0NDk59zEb2cZ0M0M0E4vVPnqbSEYudRroQDvOWfUZH6RIfw==}
+    dev: false
+
+  /@prisma/client/7.10.0_prisma@4.16.2:
+    resolution: {integrity: sha512-Ubw/QS9JGIBSBUsyxAUQuK/Jcu0Tsva7le7QbLd91Kix9yJvYDdj5QkwgEbbZniH80dd+sziQcALPc+HnvQC8Q==}
+    engines: {node: ^20.19 || ^22.12 || >=24.0}
     peerDependencies:
       prisma: '*'
+      typescript: '>=5.4.0'
     peerDependenciesMeta:
       prisma:
         optional: true
+      typescript:
+        optional: true
     dependencies:
+      '@prisma/client-runtime-utils': 7.10.0
       prisma: 4.16.2
     dev: false
 
@@ -2958,8 +2965,8 @@ packages:
     resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
     engines: {node: '>= 6'}
 
-  /deasync/0.1.30:
-    resolution: {integrity: sha512-OaAjvEQuQ9tJsKG4oHO9nV1UHTwb2Qc2+fadB0VeVtD0Z9wiG1XPGLJ4W3aLhAoQSYTaLROFRbd5X20Dkzf7MQ==}
+  /deasync/0.1.31:
+    resolution: {integrity: sha512-/6/cXqkw4LPqBVK6H0Y3L4zT7yI3pxykxPXErQ2tDCw0LJyThWL5VpBCpUOWX0vPq2OnF1pzcXvlNnvCiOQJuA==}
     engines: {node: '>=0.11.0'}
     requiresBuild: true
     dependencies:
@@ -5216,8 +5223,8 @@ packages:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
     dev: true
 
-  /isbot/3.6.5:
-    resolution: {integrity: sha512-BchONELXt6yMad++BwGpa0oQxo/uD0keL7N15cYVf0A1oMIoNQ79OqeYdPMFWDrNhCqCbRuw9Y9F3QBjvAxZ5g==}
+  /isbot/3.8.0:
+    resolution: {integrity: sha512-vne1mzQUTR+qsMLeCBL9+/tgnDXRyc2pygLGl/WsgA+EZKIiB5Ehu0CiVTHIIk30zhJ24uGz4M5Ppse37aR0Hg==}
     engines: {node: '>=12'}
     dev: false
 
@@ -8028,7 +8035,7 @@ packages:
       unist-util-visit: 4.1.1
       vfile: 5.3.6
     optionalDependencies:
-      deasync: 0.1.30
+      deasync: 0.1.31
     transitivePeerDependencies:
       - supports-color
     dev: true

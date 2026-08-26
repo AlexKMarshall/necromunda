@@ -42,7 +42,7 @@ importers:
       isbot: 3.6.5
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      zod: 3.19.1
+      zod: 3.25.76
     devDependencies:
       '@necromunda/tsconfig': link:../../packages/tsconfig
       '@playwright/experimental-ct-react': 1.28.1
@@ -66,7 +66,7 @@ importers:
     dependencies:
       '@necromunda/types': link:../../packages/types
       fp-ts: 2.13.1
-      zod: 3.19.1
+      zod: 3.25.76
     devDependencies:
       '@necromunda/tsconfig': link:../../packages/tsconfig
       eslint: 8.57.0
@@ -78,7 +78,7 @@ importers:
       '@prisma/client': latest
       prisma: 4.16.2
     dependencies:
-      '@prisma/client': 5.15.1_prisma@4.16.2
+      '@prisma/client': 7.10.0_prisma@4.16.2
     devDependencies:
       prisma: 4.16.2
 
@@ -117,7 +117,7 @@ importers:
       fp-ts: 2.13.1
       io-ts: 2.2.19_fp-ts@2.13.1
       uuid: 9.0.1
-      zod: 3.19.1
+      zod: 3.25.76
     devDependencies:
       '@necromunda/tsconfig': link:../tsconfig
       '@types/uuid': 8.3.4
@@ -1675,16 +1675,23 @@ packages:
       playwright-core: 1.28.1
     dev: true
 
-  /@prisma/client/5.15.1_prisma@4.16.2:
-    resolution: {integrity: sha512-fmZRGmsUJ9+VwC/AvfP/PwdpD0xAEyPvNsD9/B3+GYpETq9VejVRT3PiqNvl76q1uYYzNZeo8u/LmzzTetHSEg==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
+  /@prisma/client-runtime-utils/7.10.0:
+    resolution: {integrity: sha512-cnCy7lUV8/CctgKVEmqAbSLAmwqJdE/qAlqTBk/0NDk59zEb2cZ0M0M0E4vVPnqbSEYudRroQDvOWfUZH6RIfw==}
+    dev: false
+
+  /@prisma/client/7.10.0_prisma@4.16.2:
+    resolution: {integrity: sha512-Ubw/QS9JGIBSBUsyxAUQuK/Jcu0Tsva7le7QbLd91Kix9yJvYDdj5QkwgEbbZniH80dd+sziQcALPc+HnvQC8Q==}
+    engines: {node: ^20.19 || ^22.12 || >=24.0}
     peerDependencies:
       prisma: '*'
+      typescript: '>=5.4.0'
     peerDependenciesMeta:
       prisma:
         optional: true
+      typescript:
+        optional: true
     dependencies:
+      '@prisma/client-runtime-utils': 7.10.0
       prisma: 4.16.2
     dev: false
 
@@ -2958,8 +2965,8 @@ packages:
     resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
     engines: {node: '>= 6'}
 
-  /deasync/0.1.30:
-    resolution: {integrity: sha512-OaAjvEQuQ9tJsKG4oHO9nV1UHTwb2Qc2+fadB0VeVtD0Z9wiG1XPGLJ4W3aLhAoQSYTaLROFRbd5X20Dkzf7MQ==}
+  /deasync/0.1.31:
+    resolution: {integrity: sha512-/6/cXqkw4LPqBVK6H0Y3L4zT7yI3pxykxPXErQ2tDCw0LJyThWL5VpBCpUOWX0vPq2OnF1pzcXvlNnvCiOQJuA==}
     engines: {node: '>=0.11.0'}
     requiresBuild: true
     dependencies:
@@ -8028,7 +8035,7 @@ packages:
       unist-util-visit: 4.1.1
       vfile: 5.3.6
     optionalDependencies:
-      deasync: 0.1.30
+      deasync: 0.1.31
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8053,8 +8060,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  /zod/3.19.1:
-    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+  /zod/3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
     dev: false
 
   /zwitch/2.0.4:
